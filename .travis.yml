@@ -31,6 +31,7 @@ before_install:
     - pyenv activate undang
     - pip install -r requirements.txt
     - curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+    - pip install --upgrade pip
     - sudo apt-get install nodejs
     - sudo apt-get install build-essential
     - PATH=$PATH:$JAVA_HOME/bin
