@@ -16,7 +16,7 @@ class SimpleAndroidTests(unittest.TestCase):
         desired_caps['platformName'] = 'Android'
         desired_caps['platformVersion'] = '8.0'
         desired_caps['deviceName'] = 'ReactNative8_0'
-        desired_caps['app'] = PATH('app-release.apk')
+        desired_caps['app'] = PATH('./apk/app-release.apk')
         desired_caps['autoGrantPermissions'] = 'true'
         self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
