@@ -1,1 +1,1 @@
-# AppiumTestsForMobileApp
+# Appium tests with python-client
