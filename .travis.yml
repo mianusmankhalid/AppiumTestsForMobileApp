@@ -37,7 +37,7 @@ before_install:
     - pip install --user virtualenv
     - virtualenv venv
     - source venv/bin/activate
-    - pip install selenium pytest toolz python_client urllib3
+    - pip install selenium pytest toolz Appium-Python-Client urllib3
     # Required appium-doctor necessities
     - PATH=$PATH:$JAVA_HOME/bin
 before_script:
