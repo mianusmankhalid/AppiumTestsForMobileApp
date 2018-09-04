@@ -1,0 +1,55 @@
+language: android
+sudo: true
+jdk: oraclejdk8
+android:
+    components:
+        - tools
+        - platform-tools
+        - build-tools-26.1.1
+        - android-26
+        - android-22
+        - android-24
+        - extra-google-google_play_services
+        - extra-google-m2repository
+        - extra-android-m2repository
+        - addon-google_apis-google-26
+        - sys-img-armeabi-v7a-android-22
+        - sys-img-armeabi-v7a-android-26
+        - sys-img-armeabi-v7a-android-24
+        - extra
+    licenses:
+        - 'android-sdk-preview-license-52d11cd2'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+
+python: 2.7
+# install dependencies
+before_install:
+    - sudo apt-get update
+    - sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+    - nvm install 8.11.4
+    - node --version
+    # Require node global packages
+    - npm install -g appium-doctor
+    - npm install -g appium
+    - npm install -g wd
+    # Get the virtualenv in place
+    - pip install --user virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    - pip install selenium pytest toolz Appium-Python-Client urllib3
+    # Required appium-doctor necessities
+    - PATH=$PATH:$JAVA_HOME/bin
+before_script:
+# Create and start emulator
+    - appium &
+    - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+    - emulator -avd test -no-window -no-audio &
+    - android-wait-for-emulator
+    - emulator -list-avds
+    - adb shell input keyevent 82 &
+script:
+    - appium-doctor
+    - . venv/bin/activate && pytest MovieAppTest.py && deactivate
+after_script:
+    - cat ./appium_log.txt
